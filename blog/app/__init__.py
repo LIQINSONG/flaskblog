@@ -4,11 +4,14 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 from flask_login import LoginManager
+from flask_pagedown import PageDown
 
 bootstrap = Bootstrap()
 mail = Mail()
 db = SQLAlchemy()
 login_manager = LoginManager()
+pagedown = PageDown()
+
 # 属性可以设置为None，'basic', 'strong'
 # 'strong' 属性下记录客户端IP地址和浏览器的用户代理信息，发现异动就登出用户
 login_manager.session_protection = 'strong'
@@ -25,6 +28,7 @@ def create_app(config_name):
     mail.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
+    pagedown.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
